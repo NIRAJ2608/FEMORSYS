@@ -1,0 +1,2 @@
+# FEMORSYS
+FACIAL EMOTION RECOGNITION SYSTEM (full stack project)
