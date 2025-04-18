@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - FEmoRSys</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('{{ url_for("static", filename="bg3_pexel.jpg") }}') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            overflow: auto;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            right: 0;
+            text-align: right;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .navbar li {
+            margin: 0 15px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .navbar a:hover {
+            color: #ffcc00;
+            transform: scale(1.1);
+        }
+
+        .about-container {
+            text-align: center;
+            padding: 100px 20px 50px;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.5);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .about-container h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffcc00;
+            text-shadow: 2px 2px 15px rgba(255, 204, 0, 0.9);
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .content-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 25px rgba(255, 204, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="{{ url_for('dashboard_page') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('image_upload_page') }}">Image Upload</a></li>
+            <li><a href="{{ url_for('video_page') }}">Live Video</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="about-container">
+        <h2>About FEmoRSys</h2>
+        <p>This application leverages deep learning to detect facial emotions from images and live video streams. It is built using <strong>Flask</strong> for the interface and utilizes a trained machine learning model for emotion recognition.</p>
+
+        <div class="section-title">📊 Dataset: FER 2013</div>
+        <div class="content-box">
+            <p>The Facial Expression Recognition 2013 (FER-2013) dataset contains 35,887 grayscale images of 48x48 pixels, labeled with seven emotions.</p>
+        </div>
+
+        <div class="section-title">😊 The 7 Recognized Emotions</div>
+        <div class="content-box">
+            <p>😠 Angry | 🤢 Disgust | 😨 Fear | 😀 Happy | 😢 Sad | 😲 Surprise | 😐 Neutral</p>
+        </div>
+
+        <div class="section-title">🚀 Future Plans</div>
+        <div class="content-box">
+            <p>🔹 Real-time Sentiment Analysis | 🔹 Enhanced Accuracy | 🔹 Multimodal Emotion Detection | 🔹 Mobile & Web Deployment | 🔹 3D Facial Expression Analysis</p>
+        </div>
+    </div>
+</body>
+</html>

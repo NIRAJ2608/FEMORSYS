@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload - FEmoRSys</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('{{ url_for("static", filename="bg6_pexel.jpg") }}') no-repeat center center fixed;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .upload-container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .upload-container h2 {
+            color: #fff;
+            font-size: 24px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #image-preview img {
+            width: 80%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 15px;
+            border: 5px solid #ffcc00;
+            box-shadow: 0px 0px 15px #ffcc00;
+            transition: transform 0.5s ease;
+        }
+
+        #image-preview img:hover {
+            transform: scale(1.05);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 105, 135, 0.5);
+        }
+
+        nav {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('dashboard_page') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('about_page') }}">About</a></li>
+            <li><a href="{{ url_for('video_page') }}">Live Video</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="upload-container">
+        <h2>Upload Image for Emotion Detection</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" id="file" name="file" accept="image/*" required>
+            <button type="submit" class="btn">Upload</button>
+        </form>
+        
+        <div id="image-preview" class="mt-5 hidden">
+            <h3 class="text-lg font-semibold">Uploaded Image:</h3>
+            <img id="preview-img" src="" alt="Uploaded Image">
+        </div>
+
+        <div id="result" class="mt-5 text-center text-xl font-semibold text-white bg-gray-800 p-4 rounded-lg shadow-lg hidden"></div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/image_upload.js') }}"></script>
+    <script>
+        document.getElementById('file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview-img').src = e.target.result;
+                    document.getElementById('image-preview').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

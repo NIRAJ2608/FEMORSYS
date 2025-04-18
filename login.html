@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FEmoRSys</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('/static/bg5_pexel.jpg') no-repeat center center/cover;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(45, 91, 105, 0.527);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(111, 68, 136, 0.3);
+            text-align: center;
+            width: 550px;
+            animation: slideIn 1.5s ease-in-out;
+            
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated Heading */
+        .animated-heading {
+            font-family: optima;
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #ff8c00, #ff0080);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Input Fields */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background: rgba(241, 84, 84, 0.856);
+            color: rgb(240, 125, 173);
+            outline: none;
+        }
+
+        /* Button with Animation */
+        .btn {
+            background: linear-gradient(90deg, #ff8c00, #ff0080);
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            width: 80%;
+            transition: transform 0.2s ease-in-out;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(255, 140, 0, 0.5);
+        }
+
+        .bottom-text {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="form-container">
+        <h1 class="animated-heading">LogIn</h1>
+        <form id="login-form" action="{{ url_for('login_page') }}" method="post">
+            
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>            
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit" class="btn">LogIn</button>
+        </form>
+        <p class="bottom-text">Don't have an account? <a href="{{ url_for('register_page') }}">Register</a></p>
+    </div>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username, password: password })  // Ensure correct JSON format
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server Response:", data); // Debugging log
+                if (data.message === "Login successful!") {
+                    alert("Login successful! Redirecting to dashboard...");
+                    window.location.href = "/dashboard";
+                } else {
+                    alert("Login failed: " + data.error);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>    
+</body>
+</html>
